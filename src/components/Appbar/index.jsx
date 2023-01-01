@@ -1,39 +1,66 @@
 import React from "react";
 import { useTheme } from "@mui/material/styles";
 // Mui Components
-import { ListItemButton, ListItemIcon, useMediaQuery } from "@mui/material";
+import {
+  Divider,
+  ListItemButton,
+  ListItemIcon,
+  useMediaQuery,
+  IconButton,
+} from "@mui/material";
 // Styles
 import {
   AppbarContainer,
   AppbarHeader,
   MyList,
   MyListItem,
+  ActionIconContainerDesktop,
+  ActionIconContainerMobile,
 } from "../../styles/appbar";
 
 // Icons
-import  SearchIcon  from "@mui/icons-material/Search";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import PersonIcon from "@mui/icons-material/Person";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Appbar = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
-  return <>{matches ? <Mobile /> : <Desktop />}</>;
+  return (
+    <>
+      {matches ? <Mobile matches={matches} /> : <Desktop matches={matches} />}
+    </>
+  );
 };
 
 export default Appbar;
 
 // For Mobile
-const Mobile = () => {
+const Mobile = ({ matches }) => {
   return (
     <>
-      <h1>Mobile</h1>
+      <AppbarContainer>
+        <IconButton>
+          <MenuIcon />
+        </IconButton>
+        <AppbarHeader textAlign={"center"} variant="h4">
+          My Bags
+        </AppbarHeader>
+        <IconButton>
+          <SearchIcon />
+        </IconButton>
+        <Actions matches={matches} />
+      </AppbarContainer>
     </>
   );
 };
 
 // For Desktop
 
-const Desktop = () => {
+const Desktop = ({ matches }) => {
   return (
     <>
       <AppbarContainer>
@@ -49,7 +76,68 @@ const Desktop = () => {
             </ListItemIcon>
           </ListItemButton>
         </MyList>
+        <Actions matches={matches} />
       </AppbarContainer>
+    </>
+  );
+};
+
+//  Sub Components For Actions
+const Actions = ({ matches }) => {
+  const Components = matches
+    ? ActionIconContainerDesktop
+    : ActionIconContainerMobile;
+
+  return (
+    <>
+      <Components>
+        <MyList type="row">
+          <ListItemButton
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <ShoppingCartIcon />
+            </ListItemIcon>
+          </ListItemButton>
+          <Divider orientation="vertical" flexItem />
+          <ListItemButton
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <FavoriteIcon />
+            </ListItemIcon>
+          </ListItemButton>
+          <Divider orientation="vertical" flexItem />
+          <ListItemButton
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <PersonIcon />
+            </ListItemIcon>
+          </ListItemButton>
+        </MyList>
+      </Components>
     </>
   );
 };

@@ -33,3 +33,19 @@ export const MyListItem = styled(ListItemText)(({ type }) => ({
   cursor: "pointer",
   fontSize: ".7rem",
 }));
+
+export const ActionIconContainerDesktop = styled(Box)(() => ({
+  display: "flex",
+  background: Colors.shaft,
+  position: "fixed",
+  bottom: 0,
+  left: 0,
+  width: "100%",
+  alignItems: "center",
+  zIndex: 999,
+  borderTop: ` ${Colors.border}`,
+}));
+
+export const ActionIconContainerMobile = styled(Box)(() => ({
+  flexGrow: 0,
+}));
